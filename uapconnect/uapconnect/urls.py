@@ -15,8 +15,20 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+from users import views as user_views  # import home_redirect
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', user_views.home_redirect),  # root redirects to login
+    path('login/', user_views.login_view, name='login'),
+    path('logout/', user_views.logout_view, name='logout'),
+    path('dashboard/', user_views.dashboard, name='dashboard'),
+    path('academics/', include('academics.urls')),
+    path('notices/', include('notices.urls')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
