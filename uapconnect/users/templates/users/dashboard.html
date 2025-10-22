@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<!-- Declares the HTML document type and version (HTML5) -->
+<html>
+<head>
+    <!-- The title shown in the browser tab -->
+    <title>Dashboard - UAPConnect</title>
+
+    <!-- Bootstrap CSS link for responsive and styled UI components -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+<!-- ======= Navigation Bar Section ======= -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <!-- Website logo or name -->
+    <a class="navbar-brand" href="#">UAPConnect</a>
+
+    <!-- Right-aligned logout button -->
+    <div class="d-flex">
+      <!-- Django template tag for logout URL -->
+      <a href="{% url 'logout' %}" class="btn btn-outline-light">Logout</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ======= Main Content Section ======= -->
+<div class="container mt-4">
+    <!-- Displays a welcome message with the logged-in user's username -->
+    <h3>Welcome, {{ request.user.username }}</h3>
+
+    <!-- Bootstrap grid system: a row with 3 columns -->
+    <div class="row mt-4">
+
+        <!-- ======= Card 1: Class Routine ======= -->
+        <div class="col-md-4">
+            <div class="card p-3 text-center">
+                <!-- Card title -->
+                <h5>Class Routine</h5>
+                <!-- Button linking to the routine list page -->
+                <a href="{% url 'routine_list' %}" class="btn btn-primary mt-2">View</a>
+            </div>
+        </div>
+
+        <!-- ======= Card 2: Marks Tracker ======= -->
+        <div class="col-md-4">
+            <div class="card p-3 text-center">
+                <!-- Card title -->
+                <h5>Marks Tracker</h5>
+                <!-- Button linking to marks list page -->
+                <a href="{% url 'marks_list' %}" class="btn btn-success mt-2">View</a>
+            </div>
+        </div>
+
+        <!-- ======= Card 3: Job & Internship Notices ======= -->
+        <div class="col-md-4">
+            <div class="card p-3 text-center">
+                <!-- Card title -->
+                <h5>Job & Internship Notices</h5>
+                <!-- Button linking to notice list page -->
+                <a href="{% url 'notice_list' %}" class="btn btn-warning mt-2">View</a>
+            </div>
+        </div>
+
+    </div> <!-- End of row -->
+</div> <!-- End of container -->
+
+</body>
+</html>
