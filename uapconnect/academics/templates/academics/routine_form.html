@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% extends 'base.html' %}
+{% block title %}Routine Form{% endblock %}
+{% block content %}
+<h2>{% if form.instance.pk %}Edit Routine{% else %}Add New Routine{% endif %}</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">Save</button>
+    <a href="{% url 'routine_list' %}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}
+</body>
+</html>
