@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% extends 'base.html' %}
+{% block title %}Delete Routine{% endblock %}
+{% block content %}
+<h2>Delete Routine</h2>
+<p>Are you sure you want to delete <strong>{{ routine.course.title }}</strong> ({{ routine.day }})?</p>
+
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+    <a href="{% url 'routine_list' %}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}
+</body>
+</html>
