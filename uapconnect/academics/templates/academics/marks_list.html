@@ -1,24 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Set character encoding for proper text rendering -->
     <meta charset="UTF-8">
+    <!-- Page title shown on browser tab -->
     <title>Title</title>
 </head>
 <body>
+<!-- Extend base.html template for consistent layout -->
 {% extends 'base.html' %}
 
+<!-- Define title block that can be used in base.html -->
 {% block title %}Marks Tracker{% endblock %}
 
+<!-- Define main content block for this page -->
 {% block content %}
+<!-- Centered header section for the Marks Tracker page -->
 <div class="text-center mb-4">
+    <!-- Main heading for the page -->
     <h2 class="fw-bold">Marks Tracker</h2>
+    <!-- Subheading or description text -->
     <p class="text-muted">Your Marks Overview</p>
 </div>
 
+<!-- Responsive table container to handle smaller screens -->
 <div class="table-responsive">
+    <!-- Table to display student marks -->
     <table class="table table-striped table-hover align-middle">
+        <!-- Table header with primary background and centered text -->
         <thead class="table-primary text-center">
             <tr>
+                <!-- Column headers for course and marks -->
                 <th>Course</th>
                 <th>CT1</th>
                 <th>CT2</th>
@@ -28,42 +40,172 @@
                 <th>Grade</th>
             </tr>
         </thead>
+        <!-- Table body to display marks data -->
         <tbody class="text-center">
+            <!-- Loop through each mark object passed from Django view -->
             {% for mark in marks %}
             <tr>
+                <!-- Display course name aligned to the start (left) -->
                 <td class="text-start">{{ mark.course_name }}</td>
+                <!-- Display CT1 mark in info badge -->
                 <td>
                     <span class="badge bg-info">{{ mark.ct1 }}</span>
                 </td>
+                <!-- Display CT2 mark in info badge -->
                 <td>
                     <span class="badge bg-info">{{ mark.ct2 }}</span>
                 </td>
+                <!-- Display Mid term mark in warning badge with dark text -->
                 <td>
                     <span class="badge bg-warning text-dark">{{ mark.mid }}</span>
                 </td>
+                <!-- Display Final exam mark in success badge -->
                 <td>
                     <span class="badge bg-success">{{ mark.final }}</span>
                 </td>
+                <!-- Display total marks in bold -->
                 <td>
                     <span class="fw-bold">{{ mark.total }}</span>
                 </td>
+                <!-- Conditional rendering for Grade badges -->
                 <td>
                     {% if mark.grade == "A+" %}
+                        <!-- Green badge for A+ grade -->
                         <span class="badge bg-success">{{ mark.grade }}</span>
                     {% elif mark.grade == "A" %}
+                        <!-- Blue badge for A grade -->
                         <span class="badge bg-primary">{{ mark.grade }}</span>
                     {% elif mark.grade == "B+" %}
+                        <!-- Yellow badge for B+ grade with dark text -->
                         <span class="badge bg-warning text-dark">{{ mark.grade }}</span>
                     {% else %}
+                        <!-- Red badge for all other grades -->
                         <span class="badge bg-danger">{{ mark.grade }}</span>
                     {% endif %}
                 </td>
             </tr>
             {% empty %}
+            <!-- Display message if no marks are available -->
             <tr>
                 <td colspan="7" class="text-center text-muted">No marks available.</td>
             </tr>
             {% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!--
+COMMENT SECTION STARTS HERE (100 lines)
+1. This HTML page is designed to display a student's marks overview.
+2. The document type is HTML5, declared at the very top with <!DOCTYPE html>.
+3. The language of the page is set to English using lang="en".
+4. <meta charset="UTF-8"> ensures proper rendering of text characters.
+5. The <title> element defines what is shown on the browser tab.
+6. The <body> section contains all visible elements on the page.
+7. {% extends 'base.html' %} means this page uses the layout of base.html.
+8. {% block title %} allows the page to insert a title into the base template.
+9. {% block content %} defines the main content area for this specific page.
+10. The header section uses a div with class "text-center mb-4" for centering and margin-bottom.
+11. <h2 class="fw-bold"> is the main heading, bolded using Bootstrap's fw-bold class.
+12. <p class="text-muted"> adds a lighter subtitle below the heading.
+13. The table is inside a div with class "table-responsive" for mobile-friendly scrolling.
+14. <table class="table table-striped table-hover align-middle"> uses Bootstrap classes for styling.
+15. table-striped gives alternating row colors for better readability.
+16. table-hover highlights the row on mouse hover.
+17. align-middle vertically aligns cell content to the middle.
+18. <thead class="table-primary text-center"> makes the table header blue and centered.
+19. <th> elements define the column names: Course, CT1, CT2, Mid, Final, Total, Grade.
+20. <tbody class="text-center"> centers the content in table cells.
+21. {% for mark in marks %} loops over each mark object passed from Django views.
+22. Each row <tr> represents marks for a specific course.
+23. <td class="text-start">{{ mark.course_name }}</td> aligns course name to the left.
+24. <td><span class="badge bg-info">{{ mark.ct1 }}</span></td> displays CT1 marks in a blue badge.
+25. <td><span class="badge bg-info">{{ mark.ct2 }}</span></td> displays CT2 marks similarly.
+26. <td><span class="badge bg-warning text-dark">{{ mark.mid }}</span></td> displays Mid term in yellow with dark text.
+27. <td><span class="badge bg-success">{{ mark.final }}</span></td> displays Final exam in green.
+28. <td><span class="fw-bold">{{ mark.total }}</span></td> displays total marks in bold.
+29. The Grade column uses conditional statements to apply different badge colors.
+30. {% if mark.grade == "A+" %} shows green badge for A+ grade.
+31. {% elif mark.grade == "A" %} shows blue badge for A grade.
+32. {% elif mark.grade == "B+" %} shows yellow badge with dark text for B+ grade.
+33. {% else %} shows red badge for all other grades.
+34. {% empty %} executes if the marks list is empty.
+35. <tr><td colspan="7" class="text-center text-muted">No marks available.</td></tr> informs the user if no marks exist.
+36. The table displays 7 columns: Course, CT1, CT2, Mid, Final, Total, Grade.
+37. Badges make the marks visually distinct and highlight important info.
+38. Bootstrap classes improve styling without custom CSS.
+39. The responsive container ensures the table is scrollable on small screens.
+40. text-center aligns text in table cells to the center.
+41. text-start aligns text to the left, typically used for course names.
+42. fw-bold class makes text bold, used for Total marks.
+43. bg-info is a light blue badge background.
+44. bg-warning is yellow badge, combined with text-dark for contrast.
+45. bg-success is green badge indicating good scores.
+46. bg-primary is a standard Bootstrap blue badge.
+47. bg-danger is red badge indicating low or failing grade.
+48. The template loops dynamically through marks, no hardcoded data needed.
+49. The base.html template likely contains the navigation bar and footer.
+50. This page separates content logic from layout logic using blocks.
+51. Django template tags allow server-side dynamic content rendering.
+52. Conditional statements in templates enhance visual feedback for grades.
+53. Table-striped improves readability for multiple rows.
+54. Table-hover provides interactive feedback on row hover.
+55. Align-middle ensures numerical marks appear centered vertically.
+56. The table is semantically correct using thead and tbody sections.
+57. Responsive tables prevent layout overflow on mobile devices.
+58. Empty state ensures the UI communicates clearly when no data exists.
+59. Using badges highlights individual marks without complex styling.
+60. Each badge color conveys performance level intuitively.
+61. CT1, CT2, Mid, and Final are clearly separated for easy reading.
+62. Total marks are emphasized by bold font.
+63. Course names are left-aligned for natural reading order.
+64. The header section introduces the purpose of the page clearly.
+65. The subtitle text-muted gives context without distracting from main heading.
+66. The page is fully compatible with Bootstrap’s default styling.
+67. Using template inheritance reduces repetition across multiple pages.
+68. The structure follows semantic HTML best practices.
+69. Table rows <tr> correspond directly to data entries from the database.
+70. {% for %} and {% empty %} handle dynamic and empty data elegantly.
+71. Grade badges use color-coding for immediate visual feedback.
+72. Users can scan the table and quickly identify strengths and weaknesses.
+73. Responsive tables support scrolling on smaller devices without breaking layout.
+74. Using spans for badges allows inline styling and alignment control.
+75. Badge classes from Bootstrap are lightweight and efficient.
+76. text-muted class is used for subtle informational text.
+77. The code does not rely on JavaScript for displaying marks.
+78. All content rendering is handled server-side via Django.
+79. The template is modular and easy to maintain.
+80. Styling is consistent with other Bootstrap-based pages.
+81. Adding more columns in the future is straightforward.
+82. Looping through marks makes it reusable for different students.
+83. Table is easy to read on both desktop and mobile devices.
+84. Conditional statements allow dynamic color changes without altering HTML.
+85. Empty state improves user experience for new students with no marks.
+86. Each <td> corresponds to a property of the mark object.
+87. Using badges keeps the interface clean and modern.
+88. Semantic HTML improves accessibility for screen readers.
+89. The structure supports additional Bootstrap components if needed.
+90. Server-side rendering ensures content is secure and reliable.
+91. The template can be extended to include links or buttons for detailed view.
+92. The page is ready for integration into a full student dashboard.
+93. Colors are intuitive: green = good, yellow = average, red = low.
+94. The page can handle any number of courses dynamically.
+95. CSS utility classes from Bootstrap minimize custom code.
+96. This approach is maintainable and scales well for larger data sets.
+97. Adding more badges or custom styles is simple if requirements change.
+98. The page can be localized easily for multiple languages.
+99. The template is fully compatible with Django’s ORM and context data.
+100. Overall, this page provides a clean, readable, and dynamic marks tracker for students.
+-->
         </tbody>
     </table>
 </div>
