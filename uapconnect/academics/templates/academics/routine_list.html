@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% extends 'base.html' %}
+<!-- This template extends base.html, so it inherits the main layout like navbar, footer, etc. -->
+
+{% block title %}Routine List{% endblock %}
+<!-- Sets the page title to "Routine List" in the base template -->
+
+{% block content %}
+<!-- Main content block for this page -->
+
+<h2>Class Routine List</h2>
+<!-- Main heading of the page -->
+
+<a href="{% url 'routine_create' %}" class="btn btn-success mb-3">+ Add Routine</a>
+<!-- Button to create a new routine
+     - href uses Django URL template tag to link to the routine_create view
+     - btn and btn-success are Bootstrap classes for green button
+     - mb-3 adds margin below the button -->
+
+<table class="table table-bordered table-hover">
+    <!-- Bootstrap table with borders and hover effect -->
+    <thead class="table-dark">
+        <!-- Dark header for table column titles -->
+        <tr>
+            <th>Course</th>
+            <th>Day</th>
+            <th>Time</th>
+            <th>Room</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for routine in routines %}
+        <!-- Loop through each routine object passed from the Django view -->
+        <tr>
+            <!-- Display course title and code -->
+            <td>{{ routine.course.title }} ({{ routine.course.code }})</td>
+            <!-- Display day of the routine -->
+            <td>{{ routine.day }}</td>
+            <!-- Display time of the routine -->
+            <td>{{ routine.time }}</td>
+            <!-- Display room number/name -->
+            <td>{{ routine.room }}</td>
+            <!-- Action buttons for editing and deleting -->
+            <td>
+                <a href="{% url 'routine_update' routine.pk %}" class="btn btn-primary btn-sm">Edit</a>
+                <!-- Edit button
+                     - Links to the update view for this routine
+                     - btn-primary makes it blue
+                     - btn-sm makes it smaller -->
+
+                <a href="{% url 'routine_delete' routine.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                <!-- Delete button
+                     - Links to the delete view for this routine
+                     - btn-danger makes it red
+                     - btn-sm makes it smaller -->
+            </td>
+        </tr>
+        {% empty %}
+        <!-- Display if no routines exist -->
+        <tr><td colspan="5" class="text-center">No routines found.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
+
+
+
+
+
+
+<!--
+1. This template displays a list of class routines for students or faculty.
+2. It extends base.html to inherit the common site layout.
+3. The page title is set to "Routine List" using the title block.
+4. The main heading is "Class Routine List" to indicate page purpose.
+5. "+ Add Routine" button links to the routine creation page.
+6. Bootstrap classes style the button and table for consistent look.
+7. The table uses table-bordered for borders and table-hover for hover effect.
+8. Table header has a dark background using table-dark class.
+9. Columns include Course, Day, Time, Room, and Actions.
+10. The template loops through routines using {% for routine in routines %}.
+11. Each routine row displays course title, code, day, time, and room.
+12. Edit and Delete buttons allow managing each routine individually.
+13. btn-primary and btn-danger style the action buttons with color and size.
+14. {% empty %} ensures a message shows if no routines exist.
+15. colspan="5" spans the message across all table columns.
+16. text-center class centers the "No routines found" message.
+17. Django template tags dynamically render data from the database.
+18. The template is clean, readable, and responsive on different devices.
+19. Using blocks makes this template modular and reusable.
+20. Overall, it provides an easy-to-use interface for managing class routines.
+-->
+</body>
+</html>
