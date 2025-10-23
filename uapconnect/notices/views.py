@@ -15,3 +15,18 @@ def notice_create(request):
         form.save()
         return redirect('notice_list')
     return render(request, 'notices/notice_form.html', {'form': form})
+
+def notice_update(request, pk):
+    notice = get_object_or_404(Notice, pk=pk)
+    form = NoticeForm(request.POST or None, request.FILES or None, instance=notice)
+    if form.is_valid():
+        form.save()
+        return redirect('notice_list')
+    return render(request, 'notices/notice_form.html', {'form': form})
+
+def notice_delete(request, pk):
+    notice = get_object_or_404(Notice, pk=pk)
+    if request.method == "POST":
+        notice.delete()
+        return redirect('notice_list')
+    return render(request, 'notices/notice_confirm_delete.html', {'notice': notice})
